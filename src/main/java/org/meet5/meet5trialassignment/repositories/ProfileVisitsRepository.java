@@ -1,4 +1,4 @@
-package org.meet5.meet5trialassignment.repositorys;
+package org.meet5.meet5trialassignment.repositories;
 import org.meet5.meet5trialassignment.models.ProfileVisits;
 import org.meet5.meet5trialassignment.models.UserProfiles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -57,5 +58,10 @@ public class ProfileVisitsRepository {
                 return profileVisits;
             }
         };
+    }
+
+    public void saveProfileVisit(Integer visitorId, Integer visitedProfileId){
+        String sql = "INSERT INTO ProfileVisits (visitor_id, visited_profile_id, visited_at) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, visitorId, visitedProfileId, new Date());
     }
 }

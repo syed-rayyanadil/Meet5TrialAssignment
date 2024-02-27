@@ -36,6 +36,10 @@ public class ProfileVisits {
     }
 
     public void setVisitedAt(Date visitedAt) {
-        this.visitedAt = visitedAt;
+        if (visitedAt != null && visitedAt.before(new Date())) {
+            this.visitedAt = visitedAt;
+        } else {
+            throw new IllegalArgumentException("VisitedAt date cannot be in the future");
+        }
     }
 }

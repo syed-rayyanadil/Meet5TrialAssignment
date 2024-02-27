@@ -1,5 +1,8 @@
 package org.meet5.meet5trialassignment.models;
+
 import java.util.*;
+
+import static org.meet5.meet5trialassignment.util.Validations.*;
 
 
 public class UserProfiles {
@@ -10,6 +13,7 @@ public class UserProfiles {
     private String email;
     private Date dateOfBirth;
     private List<UserDefinedFields<Object>> userDefinedFields;
+
     public Integer getId() {
         return id;
     }
@@ -23,7 +27,11 @@ public class UserProfiles {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        if (firstName != null && !firstName.isEmpty()) {
+            this.firstName = firstName;
+        } else {
+            throw new IllegalArgumentException("First name cannot be null or empty");
+        }
     }
 
     public String getLastName() {
@@ -31,7 +39,11 @@ public class UserProfiles {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        if (lastName != null && !lastName.isEmpty()) {
+            this.lastName = lastName;
+        } else {
+            throw new IllegalArgumentException("Last name cannot be null or empty");
+        }
     }
 
     public Integer getAge() {
@@ -39,6 +51,12 @@ public class UserProfiles {
     }
 
     public void setAge(Integer age) {
+//        if (dateOfBirth != null) {
+//            int calculatedAge = calculateAgeFromDateOfBirth(dateOfBirth);
+//            if (!age.equals(calculatedAge)) {
+//                throw new IllegalArgumentException("Provided age does not match calculated age from date of birth.");
+//            }
+//        }
         this.age = age;
     }
 
@@ -47,7 +65,16 @@ public class UserProfiles {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email != null && !email.isEmpty()) {
+            if (isValidEmail(email)) {
+                this.email = email;
+            } else {
+                throw new IllegalArgumentException("Invalid email format");
+            }
+        } else {
+            throw new IllegalArgumentException("Email name cannot be null or empty");
+        }
+
     }
 
     public Date getDateOfBirth() {
@@ -55,13 +82,26 @@ public class UserProfiles {
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
+//        if (dateOfBirth != null) {
+//            this.dateOfBirth = dateOfBirth;
+//            calculateAge();
+//        } else {
+//            throw new IllegalArgumentException("Date of birth cannot be null.");
+//        }
         this.dateOfBirth = dateOfBirth;
     }
 
     public void setUserDefinedFields(List<UserDefinedFields<Object>> userDefinedFields) {
         this.userDefinedFields = userDefinedFields;
     }
+
     public List<UserDefinedFields<Object>> getUserDefinedFields() {
         return userDefinedFields;
+    }
+
+    private void calculateAge() {
+        if (dateOfBirth != null) {
+            this.age = calculateAgeFromDateOfBirth(dateOfBirth);
+        }
     }
 }

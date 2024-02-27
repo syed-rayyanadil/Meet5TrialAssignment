@@ -37,6 +37,10 @@ public class UserLikes {
     }
 
     public void setLikedAt(Date likedAt) {
-        this.likedAt = likedAt;
+        if (likedAt != null && likedAt.before(new Date())) {
+            this.likedAt = likedAt;
+        } else {
+            throw new IllegalArgumentException("LikedAt date cannot be in the future");
+        }
     }
 }
