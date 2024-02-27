@@ -1,5 +1,4 @@
 package org.meet5.meet5trialassignment.models;
-
 import static org.meet5.meet5trialassignment.util.Validations.*;
 
 public class UserDefinedFields<T> {

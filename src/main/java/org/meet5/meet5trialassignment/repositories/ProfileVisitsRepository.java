@@ -49,10 +49,7 @@ public class ProfileVisitsRepository {
                 visitor.setEmail(resultSet.getString("visitor_email"));
                 visitor.setDateOfBirth(resultSet.getDate("visitor_date_of_birth"));
 
-                // No need to retrieve details for the visited profile
-
                 profileVisits.setVisitor(visitor);
-                // No need to set details for the visited profile
                 profileVisits.setVisitedAt(resultSet.getTimestamp("visited_at"));
 
                 return profileVisits;

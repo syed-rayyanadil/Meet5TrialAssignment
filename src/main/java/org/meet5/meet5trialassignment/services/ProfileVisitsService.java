@@ -14,11 +14,13 @@ public class ProfileVisitsService {
 
     private final ProfileVisitsRepository profileVisitsRepository;
     private final UserProfilesRepository userProfilesRepository;
+    private final FraudDetectionService fraudDetectionService;
 
     @Autowired
-    public ProfileVisitsService(ProfileVisitsRepository profileVisitsRepository, UserProfilesRepository userProfilesRepository) {
+    public ProfileVisitsService(ProfileVisitsRepository profileVisitsRepository, UserProfilesRepository userProfilesRepository, FraudDetectionService fraudDetectionService) {
         this.profileVisitsRepository = profileVisitsRepository;
         this.userProfilesRepository = userProfilesRepository;
+        this.fraudDetectionService = fraudDetectionService;
     }
 
     public List<ProfileVisits> getProfileVisitsByUserIdSorted(Integer userId) {
@@ -31,7 +33,11 @@ public class ProfileVisitsService {
         boolean visitedProfileExists = userProfilesRepository.userExistsById(visitedProfileId);
 
         if (visitorExists && visitedProfileExists) {
-            profileVisitsRepository.saveProfileVisit(visitorId, visitedProfileId);;
+            if(!fraudDetectionService.isFraudulentActivity(visitorId, "visitor_id", "ProfileVisits", "visited_at", 10, 5)){
+                profileVisitsRepository.saveProfileVisit(visitorId, visitedProfileId);;
+            } else {
+                throw new IllegalArgumentException("Fraud Alert.");
+            }
         } else {
             throw new IllegalArgumentException("Invalid visitorId or visitedProfileId");
         }

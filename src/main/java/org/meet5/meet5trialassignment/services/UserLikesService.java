@@ -11,12 +11,15 @@ public class UserLikesService {
 
     private final UserLikesRepository userLikesRepository;
     private final UserProfilesRepository userProfilesRepository;
+    private final FraudDetectionService fraudDetectionService;
+
 
 
     @Autowired
-    public UserLikesService(UserProfilesRepository userProfilesRepository, UserLikesRepository userLikesRepository) {
+    public UserLikesService(UserProfilesRepository userProfilesRepository, UserLikesRepository userLikesRepository, FraudDetectionService fraudDetectionService) {
         this.userProfilesRepository = userProfilesRepository;
         this.userLikesRepository = userLikesRepository;
+        this.fraudDetectionService = fraudDetectionService;
     }
     public void recordUserLikes(Integer visitorId, Integer likedUserId) {
 
@@ -24,7 +27,13 @@ public class UserLikesService {
         boolean likedUserExists = userProfilesRepository.userExistsById(likedUserId);
 
         if (visitorExists && likedUserExists) {
-            userLikesRepository.saveUserLikes(visitorId, likedUserId);;
+            if(!fraudDetectionService.isFraudulentActivity(visitorId, "user_id","UserLikes", "liked_at", 10, 100))
+            {
+                userLikesRepository.saveUserLikes(visitorId, likedUserId);
+
+            } else {
+                    throw new IllegalArgumentException("Fraud Alert.");
+                }
         } else {
             throw new IllegalArgumentException("Invalid visitorId or likedProfileId");
         }

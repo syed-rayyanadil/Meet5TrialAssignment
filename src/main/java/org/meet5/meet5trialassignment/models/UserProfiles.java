@@ -17,15 +17,12 @@ public class UserProfiles {
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         if (firstName != null && !firstName.isEmpty()) {
             this.firstName = firstName;
@@ -33,11 +30,9 @@ public class UserProfiles {
             throw new IllegalArgumentException("First name cannot be null or empty");
         }
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         if (lastName != null && !lastName.isEmpty()) {
             this.lastName = lastName;
@@ -45,18 +40,11 @@ public class UserProfiles {
             throw new IllegalArgumentException("Last name cannot be null or empty");
         }
     }
-
     public Integer getAge() {
         return age;
     }
 
     public void setAge(Integer age) {
-//        if (dateOfBirth != null) {
-//            int calculatedAge = calculateAgeFromDateOfBirth(dateOfBirth);
-//            if (!age.equals(calculatedAge)) {
-//                throw new IllegalArgumentException("Provided age does not match calculated age from date of birth.");
-//            }
-//        }
         this.age = age;
     }
 
@@ -74,7 +62,6 @@ public class UserProfiles {
         } else {
             throw new IllegalArgumentException("Email name cannot be null or empty");
         }
-
     }
 
     public Date getDateOfBirth() {
@@ -82,12 +69,6 @@ public class UserProfiles {
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-//        if (dateOfBirth != null) {
-//            this.dateOfBirth = dateOfBirth;
-//            calculateAge();
-//        } else {
-//            throw new IllegalArgumentException("Date of birth cannot be null.");
-//        }
         this.dateOfBirth = dateOfBirth;
     }
 

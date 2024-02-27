@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("org.meet5.*")
 public class DatabaseConfig {
-//
+
 //    @Bean
 //    public DataSource dataSource() {
 //        DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -20,7 +20,7 @@ public class DatabaseConfig {
 //        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 //        dataSource.setUrl("jdbc:mysql://localhost:3306/meet5TrialAssignmentDB");
 //        dataSource.setUsername("root");
-//        dataSource.setPassword("Alley03312161788");
+//        dataSource.setPassword("meet5TrialAssignmentDB");
 //        return dataSource;
 //    }
 //
